@@ -13,3 +13,5 @@ This repository provides a supporting Codex skill for reading, organizing, and p
 - `Paper2Blog/`: the skill directory for WAM survey paper-reading reports.
 - `Paper2Blog/SKILL.md`: the workflow definition for report generation, style normalization, and bilingual page generation.
 - `Paper2Blog/scripts/`: helper scripts for creating report templates, applying the shared report style, and generating English versions.
+
+## Detailed usage guides and practical tips for this skill will be added soon.
