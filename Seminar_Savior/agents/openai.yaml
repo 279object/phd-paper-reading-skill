@@ -1,0 +1,4 @@
+interface:
+  display_name: "WAM Report Blog Style"
+  short_description: "Generate or restyle WAM report blogs in the approved homepage-aligned format."
+  default_prompt: "Use $wam-report-blog-style to generate or normalize a WAM paper report blog page in the approved project style."
