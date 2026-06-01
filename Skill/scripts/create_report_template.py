@@ -24,6 +24,10 @@ def write_text(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def default_style_source() -> Path:
+    return Path(__file__).resolve().parent.parent / "templates" / "wam-report-style.html"
+
+
 def extract_style_payload(source_html: str) -> tuple[str, str]:
     style_match = STYLE_RE.search(source_html)
     if not style_match:
@@ -203,8 +207,8 @@ def main() -> int:
     parser.add_argument("--output-root", default="report", help="output root relative to repo")
     parser.add_argument(
         "--source",
-        default="report/2302.00111/index.html",
-        help="canonical style source HTML, relative to repo by default",
+        default=str(default_style_source()),
+        help="style source HTML; defaults to the bundled WAM template; relative paths resolve from repo",
     )
     parser.add_argument("--force", action="store_true", help="overwrite an existing index.html")
     args = parser.parse_args()

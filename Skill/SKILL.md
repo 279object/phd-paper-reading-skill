@@ -1,6 +1,6 @@
 ---
 name: wam-report-blog-style
-description: Restyle or generate WAM-survey paper report/blog HTML pages under report/*/index.html to match the project homepage visual language. Use when Codex is asked to convert existing WAM report blogs, batch-apply the approved style, keep future report pages consistent with report/2302.00111/index.html, or generate a new Chinese paper-reading report HTML for an arXiv paper in the approved report blog format.
+description: Restyle or generate WAM-survey paper report/blog HTML pages under report/*/index.html to match the project homepage visual language. Use when Codex is asked to convert existing WAM report blogs, batch-apply the approved style, keep future report pages consistent with the bundled WAM report style template, or generate a new Chinese paper-reading report HTML for an arXiv paper in the approved report blog format.
 ---
 
 # WAM Report Blog Style
@@ -9,11 +9,11 @@ description: Restyle or generate WAM-survey paper report/blog HTML pages under r
 
 Use this skill for three related tasks:
 
-1. Restyle existing `report/*/index.html` pages so they match the approved homepage-aligned sample at `report/2302.00111/index.html`.
+1. Restyle existing `report/*/index.html` pages so they match the bundled homepage-aligned WAM template at `templates/wam-report-style.html`.
 2. Generate a new paper-reading report page directly in that same approved format.
 3. Generate static English peers for Chinese report pages and add bilingual switching.
 
-The approved format uses one Chinese HTML file per paper under `report/<paper_id>/index.html`, optional local figures under `report/<paper_id>/figures/`, one `<main>` wrapper, a top `<header>`, a sidebar/table-of-contents `<nav class="toc">`, and content sections styled by the canonical CSS from `report/2302.00111/index.html`. When an English version exists, it lives next to the Chinese page as `report/<paper_id>/index.en.html`.
+The approved format uses one Chinese HTML file per paper under `report/<paper_id>/index.html`, optional local figures under `report/<paper_id>/figures/`, one `<main>` wrapper, a top `<header>`, a sidebar/table-of-contents `<nav class="toc">`, and content sections styled by the bundled canonical source at `templates/wam-report-style.html`. A user can override the bundled template by supplying a compatible HTML file with `--source`. The source file must contain Google Fonts links before an inline `<style>` block. When an English version exists, it lives next to the Chinese page as `report/<paper_id>/index.en.html`.
 
 ## Existing-Page Conversion
 
@@ -57,18 +57,19 @@ Conversion rules:
 
 Use this workflow when the user asks to generate a new paper report/blog from an arXiv ID, local paper source, PDF, or paper notes.
 
-1. Confirm the repository root contains `index.html`, `styles.css`, and `report/`.
-2. Determine the output directory. Default to `report/<arxiv_id>/`.
-3. If the output directory already exists, do not overwrite it without explicit user approval.
-4. Create a canonical HTML scaffold with `scripts/create_report_template.py`.
-5. Gather paper content from the available source:
+1. Confirm the workspace root contains `report/`, or create it when starting a new standalone workspace.
+2. Use the bundled WAM style template by default. Pass a user-provided compatible HTML page with `--source` only when the user requests a custom visual format.
+3. Determine the output directory. Default to `report/<arxiv_id>/`.
+4. If the output directory already exists, do not overwrite it without explicit user approval.
+5. Create a canonical HTML scaffold with `scripts/create_report_template.py`.
+6. Gather paper content from the available source:
    - Prefer arXiv source (`https://arxiv.org/e-print/<id>`) when the user requested an arXiv report and network is available.
    - Use the paper PDF or local source files when provided.
    - Read appendix material when available; integrate it into the relevant body sections instead of creating a separate appendix dump.
-6. Copy extracted figures into `figures/` and reference them with relative paths.
-7. Fill the scaffold with the report content.
-8. Run `apply_report_style.py` on the new page to normalize structure and style.
-9. Validate the final HTML before reporting completion.
+7. Copy extracted figures into `figures/` and reference them with relative paths.
+8. Fill the scaffold with the report content.
+9. Run `apply_report_style.py` on the new page to normalize structure and style.
+10. Validate the final HTML before reporting completion.
 
 Create scaffold:
 
@@ -155,7 +156,7 @@ If a paper naturally needs additional sections, add them, but keep the TOC and s
 
 - Use `<!DOCTYPE html>` and `<html lang="zh-CN">`.
 - Include the MathJax config when formulas are present.
-- Use the canonical font links and CSS from `report/2302.00111/index.html`; prefer the scaffold script instead of hand-copying CSS.
+- Use the canonical font links and CSS from the bundled `templates/wam-report-style.html`; prefer the scaffold script instead of hand-copying CSS.
 - Body shape must be:
 
 ```html

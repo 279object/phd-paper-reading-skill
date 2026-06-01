@@ -40,6 +40,10 @@ def write_text(path: Path, text: str) -> None:
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
+def default_style_source() -> Path:
+    return Path(__file__).resolve().parent.parent / "templates" / "wam-report-style.html"
+
+
 def extract_style_payload(source_html: str) -> tuple[str, str]:
     style_match = STYLE_RE.search(source_html)
     if not style_match:
@@ -218,7 +222,7 @@ def normalize_toc_structure(html: str) -> str:
         if toc_match:
             toc = toc_match.group(0)
             after_sections = after_sections[: toc_match.start()] + after_sections[toc_match.end() :]
-            new_main_inner = normalized_before + "\n" + toc + "\n" + after_sections.lstrip()
+            new_main_inner = normalized_before.rstrip() + "\n\n" + toc.strip() + "\n" + after_sections.lstrip()
         else:
             generated_toc = build_generated_toc(main_inner)
             if not generated_toc:
@@ -294,8 +298,8 @@ def main() -> int:
     parser.add_argument("--repo", default=".", help="repository root")
     parser.add_argument(
         "--source",
-        default="report/2302.00111/index.html",
-        help="style source HTML, relative to repo by default",
+        default=str(default_style_source()),
+        help="style source HTML; defaults to the bundled WAM template; relative paths resolve from repo",
     )
     parser.add_argument("--target", action="append", default=[], help="target report index.html")
     parser.add_argument("--all", action="store_true", help="apply to all report/*/index.html files")
