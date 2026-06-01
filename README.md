@@ -6,7 +6,7 @@ If you are interested in world models, action models, and WAM-related research, 
 
 [https://github.com/OpenMOSS/WAM-survey](https://github.com/OpenMOSS/WAM-survey)
 
-This repository provides a supporting Codex skill for reading, organizing, and presenting papers. It helps generate, format, and maintain consistent paper-reading report pages for survey-related seminar preparation.
+This repository provides a supporting Codex skill for reading, organizing, and presenting papers. It helps generate, format, and maintain consistent paper-reading report pages for survey-related seminar preparation.Browse report examples generated with this skill in the [Library section of the Awesome-WAM website](https://openmoss.github.io/Awesome-WAM/#library). 
 
 ## Contents
 
